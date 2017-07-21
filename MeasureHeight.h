@@ -21,7 +21,5 @@ private:
 	cv::Point2i m_ground_point;
 	cv::Vec3d m_refVertical;
 	bool m_ground_set;
-
-	double Calculatep2Distance(cv::Point2d&, cv::Point2d&&);
 };
 

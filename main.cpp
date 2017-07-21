@@ -22,6 +22,7 @@
 #include <iostream>
 #include <thread>
 #include <sstream>
+#include <vector>
 
 #include "definitions.h"
 #include "ImageDataClass.h"
@@ -82,7 +83,7 @@ int main(int _num_args, char* _args[])
 	InpStream::m_stream.clear();
 //	InpStream::m_stream << "0 F:/Figures2/figure1.jpg 2";
 //	InpStream::m_stream << "0 F:/Vankovka_4.jpg 2";
-	InpStream::m_stream << "1 6";
+//	InpStream::m_stream << "1 6";
 
 
 	while (!g_finished)

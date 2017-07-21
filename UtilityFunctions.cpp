@@ -25,6 +25,8 @@ cv::Point3d CalculateVPointFromPLinesSet(ImPLinesVec& _linesVec)
 
 VectorReal CalculateLineFromPts(VecRealVec& _ptsVec)
 {
+	//simple implementation
+
 	VectorReal pt = _ptsVec.front().cross(_ptsVec.back());
 	Homogenize3DPoint(pt);
 	return pt;
@@ -83,3 +85,4 @@ void DrawLine(cv::Mat& _imag, cv::Point3d & _line, cv::Scalar _color)
 	//cv::line(_imag, cv::Point(0, 0), cv::Point(width, height), cv::Scalar(255, 0, 0), 3);
 
 }
+

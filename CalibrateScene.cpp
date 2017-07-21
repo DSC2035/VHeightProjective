@@ -144,8 +144,8 @@ void CalibrateScene::FindNearestVectorPoint()
 	crossPntVer.y /= crossPntVer.z;
 
 //	m_current_point = cv::Point2i(crossPntHor.x, crossPntHor.y);
-	double hordistance = Points2D_distance(m_current_point, cv::Point2i(crossPntHor.x, crossPntHor.y));
-	double verdistance = Points2D_distance(m_current_point, cv::Point2i(crossPntVer.x, crossPntVer.y));
+	double hordistance = CalculateP2Pdistance(m_current_point, cv::Point2i(crossPntHor.x, crossPntHor.y));
+	double verdistance = CalculateP2Pdistance(m_current_point, cv::Point2i(crossPntVer.x, crossPntVer.y));
 
 //	std::cout << "Vertical distance: " << verdistance << std::endl;
 //	std::cout << "Horizontal distance: " << hordistance << std::endl;
@@ -160,7 +160,3 @@ void CalibrateScene::UpdateFigure(cv::Mat& _imag)
 	cv::line(_imag, ImageDataClass::GetInstance().m_refPoint0, m_current_point, cv::Scalar(0, 255, 0), 3);
 }
 
-double CalibrateScene::Points2D_distance(cv::Point2i& _p1, cv::Point2i&& _p2)
-{
-	return sqrt((_p1.x - _p2.x)*(_p1.x - _p2.x) + (_p1.y - _p2.y)*(_p1.y - _p2.y));
-}

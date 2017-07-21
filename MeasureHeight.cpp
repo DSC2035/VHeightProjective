@@ -4,6 +4,8 @@
 
 #include "MeasureHeight.h"
 
+#include "UtilityFunctions.h"
+
 
 
 
@@ -197,9 +199,9 @@ double MeasureHeight::CalculateDistance()
 
 	//cv::line(g_image, cv::Point2i(t1s.x, t1s.y), cv::Point2i(t1s.x, t1s.y), cv::Scalar(255, 255, 0), 5);
 
-	double vLength = Calculatep2Distance(cv::Point2d(m_ground_point.x, m_ground_point.y), cv::Point2d(v.x, v.y));
-	double t1Length = Calculatep2Distance(cv::Point2d(m_ground_point.x, m_ground_point.y), cv::Point2d(t1s.x, t1s.y));
-	double t2Length = Calculatep2Distance(cv::Point2d(m_ground_point.x, m_ground_point.y), cv::Point2d(m_current_point.x, m_current_point.y)); 
+	double vLength = CalculateP2Pdistance(cv::Point2d(m_ground_point.x, m_ground_point.y), cv::Point2d(v.x, v.y));
+	double t1Length = CalculateP2Pdistance(cv::Point2d(m_ground_point.x, m_ground_point.y), cv::Point2d(t1s.x, t1s.y));
+	double t2Length = CalculateP2Pdistance(cv::Point2d(m_ground_point.x, m_ground_point.y), cv::Point2d(m_current_point.x, m_current_point.y)); 
 
 
 	return (t2Length*(vLength - t1Length))/(t1Length*(vLength - t2Length)) *ImageDataClass::GetInstance().m_calibLength;
@@ -218,7 +220,3 @@ double MeasureHeight::CalculateDistance()
 	return t2Length/t1Length*g_calibLength;*/
 }
 
-double MeasureHeight::Calculatep2Distance(cv::Point2d& _p1, cv::Point2d&& _p2)
-{
-	return sqrt((_p2.x - _p1.x)*(_p2.x - _p1.x) + (_p2.y - _p1.y)*(_p2.y - _p1.y));
-}
