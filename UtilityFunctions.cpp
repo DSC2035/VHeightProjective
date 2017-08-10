@@ -3,24 +3,35 @@
 
 #include "UtilityFunctions.h"
 
-cv::Point3d CalculateVPointFromPLinesSet(ImPLinesVec& _linesVec)
+VectorReal CalculateVPointFromPLinesSet(ImPLinesVec& _linesVec)
 {
+	std::vector<cv::Vec4f> linesLSA; //least squqre approximation of lines
+	for (auto it : _linesVec)
+	{
+		cv::Vec4f lineFit;
+		cv::fitLine(it, lineFit, cv::DIST_L1, 1, 0.001, 0.001);
+		linesLSA.push_back(lineFit);
+	}
+
+	return CalculateVPointFromPLinesSet(_linesVec, linesLSA);
+
+/*
 	//simplified calculation from first and last points of the first and last lines
 
-	cv::Point3d firstLinePt0(_linesVec.front().front().x, _linesVec.front().front().y, 1);
-	cv::Point3d firstLinePt1(_linesVec.front().back().x, _linesVec.front().back().y, 1);
+	VectorReal firstLinePt0(_linesVec.front().front().x, _linesVec.front().front().y, 1);
+	VectorReal firstLinePt1(_linesVec.front().back().x, _linesVec.front().back().y, 1);
 
-	cv::Point3d lastLinePt0(_linesVec.back().front().x, _linesVec.back().front().y, 1);
-	cv::Point3d lastLinePt1(_linesVec.back().back().x, _linesVec.back().back().y, 1);
+	VectorReal lastLinePt0(_linesVec.back().front().x, _linesVec.back().front().y, 1);
+	VectorReal lastLinePt1(_linesVec.back().back().x, _linesVec.back().back().y, 1);
 
-	cv::Point3d vpoint = (firstLinePt0.cross(firstLinePt1)).cross(lastLinePt0.cross(lastLinePt1));
+	VectorReal vpoint = (firstLinePt0.cross(firstLinePt1)).cross(lastLinePt0.cross(lastLinePt1));
 
-	/*vpoint.x /= vpoint.z;
-	vpoint.y /= vpoint.z;
-	vpoint.z /= vpoint.z;*/
-	Homogenize3DPoint<cv::Point3d>(vpoint);
+//	vpoint.x /= vpoint.z;
+//	vpoint.y /= vpoint.z;
+//	vpoint.z /= vpoint.z;
+	Homogenize3DPoint<VectorReal>(vpoint);
 
-	return vpoint;
+	return vpoint;//*/
 }
 
 VectorReal CalculateLineFromPts(VecRealVec& _ptsVec)
